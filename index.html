@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<script>document.documentElement.classList.add('js');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ashika Sameem Abdul Rasheed — CV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+/* ============ THEME TOKENS ============ */
+[data-theme="dark"]{
+  --bg:#05080a;
+  --bg2:#0a1014;
+  --panel:#0c1418;
+  --panel2:#0f1a1f;
+  --line:#182b28;
+  --acc:#00ff9c;
+  --acc-dim:#00b874;
+  --acc2:#ffb545;
+  --text:#d6f5e6;
+  --text-dim:#7fa596;
+  --text-mute:#4d7061;
+  --glow:rgba(0,255,156,0.16);
+  --glow-strong:rgba(0,255,156,0.4);
+  --shadow:rgba(0,0,0,0.5);
+}
+[data-theme="light"]{
+  --bg:#f4f7f5;
+  --bg2:#ffffff;
+  --panel:#ffffff;
+  --panel2:#f0f4f2;
+  --line:#dce6e1;
+  --acc:#00a36c;
+  --acc-dim:#00875a;
+  --acc2:#c77d1a;
+  --text:#122019;
+  --text-dim:#4c6a5c;
+  --text-mute:#8aa298;
+  --glow:rgba(0,163,108,0.12);
+  --glow-strong:rgba(0,163,108,0.25);
+  --shadow:rgba(20,50,35,0.1);
+}
+
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  transition:background 0.5s ease,color 0.5s ease;
+}
+
+/* ============ MATRIX RAIN (dark only) ============ */
+#matrix{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity 0.6s;}
+[data-theme="dark"] #matrix{opacity:0.35;}
+[data-theme="light"] #matrix{opacity:0;}
+
+/* light theme ambient particles canvas */
+#particles{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity 0.6s;}
+[data-theme="light"] #particles{opacity:0.9;}
+
+.wrap{position:relative;z-index:2;max-width:1000px;margin:0 auto;padding:0 24px;}
+
+/* ============ THEME TOGGLE ============ */
+.toggle{
+  position:fixed;top:20px;right:20px;z-index:50;
+  display:flex;align-items:center;gap:8px;
+  background:var(--panel);border:1px solid var(--line);
+  border-radius:30px;padding:6px 8px;cursor:pointer;
+  box-shadow:0 4px 20px var(--shadow);
+  transition:all 0.3s;
+  font-family:'JetBrains Mono',monospace;
+}
+.toggle:hover{border-color:var(--acc-dim);box-shadow:0 0 20px var(--glow);}
+.toggle .knob{
+  width:26px;height:26px;border-radius:50%;
+  background:linear-gradient(135deg,var(--acc),var(--acc-dim));
+  display:flex;align-items:center;justify-content:center;
+  color:var(--bg);transition:transform 0.4s cubic-bezier(.6,.1,.3,1.3);
+}
+.toggle .knob svg{width:15px;height:15px;}
+.toggle .tlabel{font-size:0.66rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-mute);padding-right:6px;}
+[data-theme="light"] .toggle .knob{transform:rotate(360deg);}
+
+/* ============ HERO ============ */
+.hero{padding:80px 0 44px;}
+.hero-top{display:flex;align-items:center;gap:32px;margin-bottom:26px;}
+
+/* cooler "tech ID" photo frame — portrait ratio so head isn't cropped */
+.photo{position:relative;width:132px;height:158px;flex-shrink:0;}
+/* animated gradient glow border */
+.photo::before{
+  content:'';position:absolute;inset:-2px;border-radius:16px;z-index:0;
+  background:linear-gradient(135deg,var(--acc),var(--acc2) 50%,var(--acc-dim));
+  background-size:200% 200%;
+  opacity:0.9;animation:frameFlow 5s ease-in-out infinite;
+  filter:blur(0.5px);
+}
+@keyframes frameFlow{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
+.photo-inner{
+  position:relative;z-index:1;width:100%;height:100%;border-radius:14px;
+  overflow:hidden;background:var(--panel);
+  box-shadow:0 0 22px var(--glow);
+}
+.photo-inner img{
+  width:100%;height:100%;object-fit:cover;object-position:center top;
+  display:block;filter:saturate(1.05) contrast(1.02);
+}
+/* scan line */
+.photo-scan{
+  position:absolute;left:0;right:0;height:35%;z-index:2;pointer-events:none;
+  background:linear-gradient(180deg,transparent,var(--glow-strong),transparent);
+  top:-35%;
+}
+.js .photo-scan{animation:scan 3.5s ease-in-out infinite;}
+@keyframes scan{0%{top:-35%;}55%,100%{top:135%;}}
+/* animated bracket corners that draw in */
+.photo .brk{position:absolute;width:20px;height:20px;z-index:3;pointer-events:none;}
+.photo .brk::before,.photo .brk::after{content:'';position:absolute;background:var(--acc);box-shadow:0 0 6px var(--acc);}
+.photo .brk::before{width:100%;height:2px;}
+.photo .brk::after{width:2px;height:100%;}
+.photo .brk.tl{top:-5px;left:-5px;}
+.photo .brk.tl::before{top:0;left:0;} .photo .brk.tl::after{top:0;left:0;}
+.photo .brk.br{bottom:-5px;right:-5px;}
+.photo .brk.br::before{bottom:0;right:0;} .photo .brk.br::after{bottom:0;right:0;}
+.js .photo .brk{opacity:0;animation:brkIn 0.6s ease 0.6s forwards;}
+@keyframes brkIn{to{opacity:0.95;}}
+/* little status dot */
+.photo .status{
+  position:absolute;bottom:8px;right:8px;z-index:4;
+  width:9px;height:9px;border-radius:50%;background:var(--acc);
+  box-shadow:0 0 0 2px var(--panel),0 0 10px var(--acc);
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.85);}}
+
+.hero-name{min-width:0;}
+.eyebrow{
+  font-family:'JetBrains Mono',monospace;font-size:0.72rem;letter-spacing:0.25em;
+  text-transform:uppercase;color:var(--acc);display:flex;align-items:center;gap:10px;margin-bottom:14px;
+}
+.eyebrow::before{content:'';width:28px;height:1px;background:var(--acc);box-shadow:0 0 8px var(--acc);}
+.hero h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.7rem,4.2vw,2.7rem);font-weight:700;line-height:1.08;letter-spacing:-0.02em;margin-bottom:10px;}
+.hero h1 .last{
+  background:linear-gradient(120deg,var(--acc),var(--acc2));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
+}
+.role{font-family:'JetBrains Mono',monospace;font-size:0.9rem;color:var(--text-dim);margin-bottom:22px;min-height:1.3em;}
+.role .blink{color:var(--acc);animation:blink 1.1s step-end infinite;}
+@keyframes blink{50%{opacity:0;}}
+
+.contact-row{display:flex;flex-wrap:wrap;gap:10px;}
+.chip{
+  display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:0.76rem;
+  color:var(--text-dim);background:var(--panel);border:1px solid var(--line);padding:7px 13px;border-radius:8px;
+  text-decoration:none;transition:all 0.2s;
+}
+.chip:hover{border-color:var(--acc-dim);color:var(--acc);box-shadow:0 0 16px var(--glow);transform:translateY(-1px);}
+.chip svg{width:14px;height:14px;flex-shrink:0;}
+
+.stats{display:flex;margin-top:22px;flex-wrap:wrap;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel);}
+.stat{padding:14px 22px;flex:1;min-width:104px;border-right:1px solid var(--line);position:relative;overflow:hidden;}
+.stat:last-child{border-right:none;}
+.stat .n{font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:700;line-height:1;color:var(--acc);}
+.stat .l{font-family:'JetBrains Mono',monospace;font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-mute);margin-top:6px;}
+
+/* ============ INTRO ============ */
+.intro{
+  font-size:1rem;color:var(--text-dim);line-height:1.8;padding:26px 28px;
+  background:var(--panel);border:1px solid var(--line);border-left:2px solid var(--acc);
+  border-radius:12px;margin-bottom:56px;position:relative;overflow:hidden;
+}
+.intro b{color:var(--text);font-weight:600;}
+.intro::before{
+  content:'';position:absolute;top:0;left:0;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,var(--glow),transparent);
+  transform:translateX(-100%);
+}
+.js .intro.in::before{animation:sweep 1.4s ease 0.3s;}
+@keyframes sweep{to{transform:translateX(100%);}}
+
+/* ============ SECTION ============ */
+section{margin-bottom:58px;position:relative;}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:26px;position:relative;}
+.sec-num{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--acc-dim);font-weight:600;}
+.sec-head h2{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:600;letter-spacing:-0.01em;}
+.sec-head .rule{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent);position:relative;overflow:hidden;}
+.sec-head .rule::after{content:'';position:absolute;top:0;left:0;width:40px;height:100%;background:var(--acc);opacity:0.6;}
+.js .reveal.in .sec-head .rule::after{animation:runline 1.6s ease;}
+@keyframes runline{from{left:-40px;}to{left:100%;}}
+
+/* ============ SKILLS ============ */
+.skills-grid{display:flex;flex-wrap:wrap;gap:9px;}
+.skill{
+  font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--text-dim);
+  background:var(--panel);border:1px solid var(--line);padding:8px 14px;border-radius:8px;
+  transition:all 0.2s;cursor:default;
+}
+.skill:hover{color:var(--bg);background:var(--acc);border-color:var(--acc);box-shadow:0 0 20px var(--glow);transform:translateY(-2px);}
+
+/* ============ TIMELINE ============ */
+.timeline{display:flex;flex-direction:column;gap:0;position:relative;}
+.tl{display:grid;grid-template-columns:150px 1fr;gap:24px;padding:22px 0;border-top:1px solid var(--line);position:relative;}
+.tl:last-child{border-bottom:1px solid var(--line);}
+.tl-date{font-family:'JetBrains Mono',monospace;font-size:0.74rem;color:var(--acc);padding-top:3px;line-height:1.5;}
+.tl-body h3{font-family:'Space Grotesk',sans-serif;font-size:1.02rem;font-weight:600;margin-bottom:4px;}
+.tl-body .org{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text-mute);margin-bottom:10px;}
+.tl-body ul{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.tl-body li{font-size:0.88rem;color:var(--text-dim);padding-left:18px;position:relative;}
+.tl-body li::before{content:'▹';position:absolute;left:0;color:var(--acc-dim);}
+
+/* ============ CARDS ============ */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px;transition:border-color 0.2s,box-shadow 0.2s;}
+.card:hover{border-color:var(--acc-dim);box-shadow:0 0 24px var(--glow);}
+.edu-item{margin-bottom:20px;}
+.edu-item:last-child{margin-bottom:0;}
+.edu-item h3{font-family:'Space Grotesk',sans-serif;font-size:0.98rem;font-weight:600;margin-bottom:3px;}
+.edu-item .school{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--acc);margin-bottom:4px;}
+.edu-item .meta{font-size:0.82rem;color:var(--text-mute);}
+.card-label{font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-mute);margin-bottom:16px;}
+.course-list{display:flex;flex-direction:column;gap:9px;}
+.course{font-size:0.86rem;color:var(--text-dim);padding-left:20px;position:relative;}
+.course::before{content:'›';position:absolute;left:2px;color:var(--acc);font-weight:600;}
+
+/* ============ PROJECTS ============ */
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.proj{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;transition:transform 0.2s,border-color 0.2s,box-shadow 0.2s;position:relative;overflow:hidden;}
+.proj::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--acc),transparent);opacity:0;transition:opacity 0.3s;}
+.proj:hover{transform:translateY(-3px);border-color:var(--acc-dim);box-shadow:0 8px 30px var(--shadow);}
+.proj:hover::after{opacity:1;}
+.proj-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px;}
+.proj h3{font-family:'Space Grotesk',sans-serif;font-size:0.96rem;font-weight:600;line-height:1.3;}
+.proj .yr{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--acc);white-space:nowrap;padding-top:2px;}
+.proj p{font-size:0.83rem;color:var(--text-dim);line-height:1.6;}
+.proj .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
+.proj .tg{font-family:'JetBrains Mono',monospace;font-size:0.66rem;color:var(--text-mute);border:1px solid var(--line);padding:3px 8px;border-radius:5px;}
+
+/* ============ PUBLICATIONS ============ */
+.pubs{display:flex;flex-direction:column;gap:2px;}
+.pub{display:grid;grid-template-columns:auto 1fr;gap:16px;padding:16px 18px;border:1px solid transparent;border-radius:10px;transition:all 0.2s;}
+.pub:hover{background:var(--panel);border-color:var(--line);transform:translateX(4px);}
+.pub-id{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--acc-dim);padding-top:3px;white-space:nowrap;}
+.pub-body .pt{font-size:0.9rem;color:var(--text);font-weight:500;line-height:1.5;margin-bottom:5px;}
+.pub-body .pmeta{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--text-mute);line-height:1.5;}
+.pub-body .venue{color:var(--acc2);}
+
+/* ============ PERSONAL ============ */
+.personal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;}
+.pd{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;transition:border-color 0.2s;}
+.pd:hover{border-color:var(--acc-dim);}
+.pd .k{font-family:'JetBrains Mono',monospace;font-size:0.66rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-mute);margin-bottom:6px;}
+.pd .v{font-size:0.9rem;color:var(--text);}
+
+/* ============ FOOTER ============ */
+footer{border-top:1px solid var(--line);padding:28px 0 48px;text-align:center;}
+footer .fmono{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--text-mute);letter-spacing:0.08em;}
+footer .fmono .dot{color:var(--acc);}
+
+/* ============ REVEAL ANIMATIONS ============ */
+.js .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s cubic-bezier(.2,.7,.2,1),transform 0.7s cubic-bezier(.2,.7,.2,1);}
+.js .reveal.in{opacity:1;transform:translateY(0);}
+.js .stagger > *{opacity:0;transform:translateY(16px);transition:opacity 0.5s ease,transform 0.5s ease;}
+.js .stagger.in > *{opacity:1;transform:translateY(0);}
+.js .hero-top{opacity:0;transform:translateY(18px);animation:heroIn 0.7s cubic-bezier(.2,.7,.2,1) 0.1s forwards;}
+.js .hero-info{opacity:0;transform:translateY(18px);animation:heroIn 0.7s cubic-bezier(.2,.7,.2,1) 0.35s forwards;}
+@keyframes heroIn{to{opacity:1;transform:translateY(0);}}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:768px){
+  .hero{padding:64px 0 32px;}
+  .hero-top{gap:20px;}
+  .photo{width:104px;height:126px;}
+  .two-col,.proj-grid{grid-template-columns:1fr;}
+  .tl{grid-template-columns:1fr;gap:8px;}
+  .tl-date{padding-top:0;}
+  .pub{grid-template-columns:1fr;gap:6px;}
+  .intro{padding:22px 20px;}
+  .toggle{top:12px;right:12px;}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto;}}
+@media print{body{background:#fff;color:#000;}#matrix,#particles,.toggle{display:none;}}
+</style>
+</head>
+<body>
+<canvas id="matrix"></canvas>
+<canvas id="particles"></canvas>
+
+<button class="toggle" id="themeToggle" aria-label="Toggle theme">
+  <span class="tlabel" id="tlabel">dark</span>
+  <span class="knob" id="knob">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </span>
+</button>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="hero-top">
+      <div class="photo">
+        <span class="brk tl"></span><span class="brk br"></span>
+        <div class="photo-inner">
+          <img src="data:image/jpeg;base64,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" alt="Ashika Sameem Abdul Rasheed">
+          <div class="photo-scan"></div>
+        </div>
+        <span class="status"></span>
+      </div>
+      <div class="hero-name">
+        <div class="eyebrow">Information Security &middot; AI Research</div>
+        <h1>Ashika Sameem<br><span class="last">Abdul Rasheed</span></h1>
+        <div class="role">&gt; <span id="typed"></span><span class="blink">_</span></div>
+      </div>
+    </div>
+    <div class="hero-info">
+      <div class="contact-row">
+        <a class="chip" href="mailto:ashikasameem@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>ashikasameem@gmail.com</a>
+        <a class="chip" href="mailto:700036309@uaeu.ac.ae"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>700036309@uaeu.ac.ae</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="n" data-count="10">10</div><div class="l">Publications</div></div>
+        <div class="stat"><div class="n">3.7</div><div class="l">MSc GPA</div></div>
+        <div class="stat"><div class="n" data-count="6">6</div><div class="l">Projects</div></div>
+        <div class="stat"><div class="n">2024</div><div class="l">MSc Infosec</div></div>
+      </div>
+    </div>
+  </header>
+
+  <p class="intro reveal">
+    Motivated recent graduate with a <b>master&rsquo;s degree in Information Security</b> from the United Arab Emirates University. Actively seeking opportunities across diverse fields to apply technical skills and innovative ideas toward a growing professional career. Academic work centers on research across computer technologies &mdash; with a focus on <b>cybersecurity</b>, <b>artificial intelligence</b>, and related domains.
+  </p>
+
+  <section id="skills" class="reveal">
+    <div class="sec-head"><span class="sec-num">01</span><h2>Skills &amp; Tools</h2><span class="rule"></span></div>
+    <div class="skills-grid stagger">
+      <span class="skill">Python</span><span class="skill">Java</span><span class="skill">PHP</span><span class="skill">C</span>
+      <span class="skill">HTML</span><span class="skill">MySQL</span><span class="skill">Malware Analysis</span><span class="skill">Network Security</span>
+      <span class="skill">Risk Assessment</span><span class="skill">UI/UX Design</span><span class="skill">Web / App Dev</span><span class="skill">Data Scraping &middot; Selenium</span>
+      <span class="skill">Adobe Suite</span><span class="skill">Dreamweaver</span><span class="skill">MS Project / Visio</span><span class="skill">MS Office</span>
+    </div>
+  </section>
+
+  <section id="experience" class="reveal">
+    <div class="sec-head"><span class="sec-num">02</span><h2>Professional Experience</h2><span class="rule"></span></div>
+    <div class="timeline stagger">
+      <div class="tl"><div class="tl-date">Jan 2025 &mdash; Present</div><div class="tl-body"><h3>Research Assistant</h3><div class="org">United Arab Emirates University</div><ul><li>Working on secure and efficient federated learning &mdash; reducing overhead while improving privacy.</li><li>Extended thesis with a study on LLM security, proposing a method to mitigate jailbreaking attacks.</li><li>Submitted two journal papers and one conference paper based on these projects.</li></ul></div></div>
+      <div class="tl"><div class="tl-date">Apr 2024 &mdash; Dec 2024</div><div class="tl-body"><h3>Part-Time Researcher</h3><div class="org">United Arab Emirates University</div><ul><li>Wrote and contributed to academic articles and research papers.</li><li>Prepared and delivered presentations summarizing research findings.</li><li>Conducted experiments to test hypotheses and gather data.</li><li>Collaborated with team members to refine research objectives.</li></ul></div></div>
+      <div class="tl"><div class="tl-date">Mar 2023 &mdash; Mar 2024</div><div class="tl-body"><h3>Research Assistant</h3><div class="org">United Arab Emirates University</div><ul><li>Conducted thorough literature reviews to support ongoing research initiatives.</li><li>Handled data collection, organization, and analysis to inform research findings.</li></ul></div></div>
+    </div>
+  </section>
+
+  <section id="education" class="reveal">
+    <div class="sec-head"><span class="sec-num">03</span><h2>Education &amp; Core Courses</h2><span class="rule"></span></div>
+    <div class="two-col stagger">
+      <div class="card">
+        <div class="card-label">// Degrees</div>
+        <div class="edu-item"><h3>MSc, Information Security</h3><div class="school">United Arab Emirates University</div><div class="meta">2021 &ndash; 2024 &middot; Graduated with 3.7 GPA</div></div>
+        <div class="edu-item"><h3>BSc, Computer Science</h3><div class="school">Bharathidasan University, India</div><div class="meta">2015 &ndash; 2018 &middot; 3.28 GPA</div></div>
+      </div>
+      <div class="card">
+        <div class="card-label">// Academic Core</div>
+        <div class="course-list">
+          <span class="course">Cryptography &amp; Secure Communications</span><span class="course">Software Security</span><span class="course">Advanced Network Security</span><span class="course">IoT Security</span><span class="course">System Analysis, Modeling &amp; Design</span><span class="course">Information Security Fundamentals</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="reveal">
+    <div class="sec-head"><span class="sec-num">04</span><h2>Academic Projects</h2><span class="rule"></span></div>
+    <div class="proj-grid stagger">
+      <div class="proj"><div class="proj-top"><h3>Privacy-Preserving Federated Learning</h3><span class="yr">2024</span></div><p>Federated learning with privacy enhancements via homomorphic encryption (PALISADE, CKKS). Monitored communication overhead, evaluated model accuracy for secure aggregation, and implemented differential privacy.</p><div class="tags"><span class="tg">Homomorphic Enc.</span><span class="tg">CKKS</span><span class="tg">Differential Privacy</span></div></div>
+      <div class="proj"><div class="proj-top"><h3>IoT Network Security</h3><span class="yr">2024</span></div><p>Collaborative project implementing ensemble learning to analyze network threats and detect them in real time &mdash; training on datasets and assessing detection accuracy.</p><div class="tags"><span class="tg">Ensemble Learning</span><span class="tg">Threat Detection</span></div></div>
+      <div class="proj"><div class="proj-top"><h3>Thesis &mdash; SDG Prototype</h3><span class="yr">2023&ndash;24</span></div><p>Extended earlier SDG work into a functional prototype: built a specialized dataset, designed a full system (database + AI tooling), and transformed it into a Python application.</p><div class="tags"><span class="tg">Python</span><span class="tg">AI Systems</span><span class="tg">Dataset Design</span></div></div>
+      <div class="proj"><div class="proj-top"><h3>Climate Change &mdash; Early Warning</h3><span class="yr">2023&ndash;24</span></div><p>Ongoing project proposing an approach combining data analysis and AI techniques to enhance climate-action efforts related to water stress.</p><div class="tags"><span class="tg">Data Analysis</span><span class="tg">AI</span></div></div>
+      <div class="proj"><div class="proj-top"><h3>Quality Education Using AI</h3><span class="yr">2022</span></div><p>Aligned with the UN SDGs. Applied AI tools to extract key insights from lectures to enhance student knowledge, and designed an architectural framework for the system.</p><div class="tags"><span class="tg">NLP</span><span class="tg">Transformers</span><span class="tg">AI</span></div></div>
+      <div class="proj"><div class="proj-top"><h3>MEDWORLD</h3><span class="yr">2018</span></div><p>Bachelor&rsquo;s project (Team Leader, team of 3, 6 months). A website to search a medication by name and see local availability and price &mdash; saving time and improving satisfaction.</p><div class="tags"><span class="tg">PHP</span><span class="tg">HTML/JS</span><span class="tg">MySQL</span><span class="tg">WAMP</span></div></div>
+    </div>
+  </section>
+
+  <section id="publications" class="reveal">
+    <div class="sec-head"><span class="sec-num">05</span><h2>Publications</h2><span class="rule"></span></div>
+    <div class="pubs stagger">
+      <div class="pub"><span class="pub-id">[01]</span><div class="pub-body"><div class="pt">Effective Defense Strategies Against Jailbreaking in Large Language Models</div><div class="pmeta">Rasheed, A. S. A., &amp; Masud, M. M. (2026). <span class="venue">IEEE Access</span>, 14, 52591&ndash;52609.</div></div></div>
+      <div class="pub"><span class="pub-id">[02]</span><div class="pub-body"><div class="pt">Detecting Data Poisoning Attacks in Medical Imaging Using Explainability-Driven Features</div><div class="pmeta">Asgar, A., Bataineh, A. S., Rasheed, A. S. A., Al-Amaren, A., &amp; Damseh, R. (2026). <span class="venue">IEEE Access</span>.</div></div></div>
+      <div class="pub"><span class="pub-id">[03]</span><div class="pub-body"><div class="pt">Secure Federated Learning Under Non-IID and Multimodal Breast Imaging</div><div class="pmeta">Rasheed, A. S. A., Awad, M., &amp; Masud, M. M. (2026, Feb). <span class="venue">SoutheastCon 2026</span>, pp. 169&ndash;174. IEEE.</div></div></div>
+      <div class="pub"><span class="pub-id">[04]</span><div class="pub-body"><div class="pt">How Linguistic Variation Shapes Hallucination Risk in Large Language Models: A Psychometric Perspective</div><div class="pmeta">Farhad, M., Masud, M., Abdul Rasheed, A. S., &amp; Musthfa, N. (2026, Feb). <span class="venue">Australasian Information Security Conference</span>, pp. 38&ndash;46.</div></div></div>
+      <div class="pub"><span class="pub-id">[05]</span><div class="pub-body"><div class="pt">A Secure and Effective Framework for Key Concept Mining from Educational Content Using Large Language Models</div><div class="pmeta">Rasheed, A. S. A., &amp; Masud, M. M. (2025, Oct). <span class="venue">IEEE 19th Intl. Conf. on Application of Information &amp; Communication Technologies (AICT)</span>, pp. 1&ndash;6. IEEE.</div></div></div>
+      <div class="pub"><span class="pub-id">[06]</span><div class="pub-body"><div class="pt">A Modular Framework for Hierarchical Federated Learning with Multi-Key Homomorphic Encryption</div><div class="pmeta">Rasheed, A. S. A., &amp; Masud, M. M. (2025, Oct). <span class="venue">IEEE/ACS 22nd Intl. Conf. on Computer Systems &amp; Applications (AICCSA)</span>, pp. 1&ndash;8. IEEE.</div></div></div>
+      <div class="pub"><span class="pub-id">[07]</span><div class="pub-body"><div class="pt">Privacy-Preserving Multi-party Learning Framework for Enhanced Personalized Neuro-Rehabilitation</div><div class="pmeta">Masud, M. M., Rasheed, A. S. A., Zhu, X., &amp; Al-Rajab, M. (2024, Nov). <span class="venue">Intl. Conf. on Neuro Rehabilitation (ICNR)</span>, pp. 456&ndash;460, Segovia, Spain.</div></div></div>
+      <div class="pub"><span class="pub-id">[08]</span><div class="pub-body"><div class="pt">A Comparative Study of Transformer-Based Pretrained AI Models for Content Summarization</div><div class="pmeta">Rasheed, A. S. A., Masud, M. M., &amp; Abduljabbar, M. (2023, Nov). <span class="venue">15th Intl. Conf. on Innovations in Information Technology (IIT)</span>, pp. 79&ndash;84, Al Ain, UAE.</div></div></div>
+      <div class="pub"><span class="pub-id">[09]</span><div class="pub-body"><div class="pt">A Cloud-Based 3D Digital Twin for Arabic Sign Language Alphabet Using Machine Learning Object Detection Model</div><div class="pmeta">Abduljabbar, M., Gochoo, M., Sultan, M. T., Batnasan, G., Otgonbold, M. E., Berengueres, J., &hellip; &amp; Alsaedi, N. (2023, Nov). <span class="venue">15th Intl. Conf. on Innovations in Information Technology (IIT)</span>, pp. 208&ndash;212. IEEE.</div></div></div>
+      <div class="pub"><a class="pub-id" href="https://scholarworks.uaeu.ac.ae/all_theses/1304/" target="_blank" style="text-decoration:none;">[10]</a><div class="pub-body"><div class="pt">A Secure and Effective Framework for Key Concept Mining from Educational Content Using Large Language Models <span style="color:var(--acc2);font-family:'JetBrains Mono',monospace;font-size:0.68rem;">&middot; MSc Thesis</span></div><div class="pmeta">Abdul Rasheed, A. S. (2024). <span class="venue">Master&rsquo;s Thesis, United Arab Emirates University</span>, UAEU ScholarWorks.</div></div></div>
+    </div>
+  </section>
+
+  <section id="personal" class="reveal">
+    <div class="sec-head"><span class="sec-num">06</span><h2>Personal Details</h2><span class="rule"></span></div>
+    <div class="personal-grid stagger">
+      <div class="pd"><div class="k">Languages</div><div class="v">English &middot; Tamil</div></div>
+      <div class="pd"><div class="k">Nationality</div><div class="v">Indian</div></div>
+      <div class="pd"><div class="k">Marital Status</div><div class="v">Single</div></div>
+      <div class="pd"><div class="k">Driving License</div><div class="v">Light Vehicles (UAE & Bahrain)</div></div>
+    </div>
+  </section>
+
+</div>
+
+<footer><div class="wrap"><div class="fmono">ashika<span class="dot">.</span>rasheed <span class="dot">//</span> information security <span class="dot">&middot;</span> ai research</div></div></footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root = document.documentElement;
+
+  /* ---- THEME TOGGLE ---- */
+  var btn = document.getElementById('themeToggle');
+  var tlabel = document.getElementById('tlabel');
+  btn.addEventListener('click', function(){
+    var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    tlabel.textContent = next;
+  });
+
+  /* ---- TYPING ---- */
+  (function(){
+    var el = document.getElementById('typed');
+    if(!el) return;
+    var phrases = ["MSc Information Security","Cybersecurity Researcher","AI & LLM Security","Federated Learning"];
+    if(reduce){ el.textContent = phrases[0]; return; }
+    var pi=0, ci=0, del=false;
+    function tick(){
+      var c=phrases[pi];
+      if(!del){ci++;el.textContent=c.slice(0,ci);if(ci===c.length){del=true;return setTimeout(tick,1500);}setTimeout(tick,60);}
+      else{ci--;el.textContent=c.slice(0,ci);if(ci===0){del=false;pi=(pi+1)%phrases.length;return setTimeout(tick,350);}setTimeout(tick,30);}
+    }
+    setTimeout(tick,700);
+  })();
+
+  /* ---- REVEAL ---- */
+  document.querySelectorAll('.stagger').forEach(function(g){
+    Array.prototype.forEach.call(g.children,function(ch,i){ch.style.transitionDelay=Math.min(i*55,500)+'ms';});
+  });
+  if(reduce){
+    document.querySelectorAll('.reveal,.stagger').forEach(function(e){e.classList.add('in');});
+  } else if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
+    document.querySelectorAll('.reveal,.stagger').forEach(function(e){io.observe(e);});
+    setTimeout(function(){document.querySelectorAll('.reveal:not(.in),.stagger:not(.in)').forEach(function(e){e.classList.add('in');});},2600);
+  } else {
+    document.querySelectorAll('.reveal,.stagger').forEach(function(e){e.classList.add('in');});
+  }
+
+  /* ---- COUNT UP ---- */
+  (function(){
+    var nums=document.querySelectorAll('.stat .n[data-count]');
+    if(!nums.length)return;
+    if(reduce){nums.forEach(function(n){n.textContent=n.getAttribute('data-count');});return;}
+    function up(el){var t=parseInt(el.getAttribute('data-count'),10),s=null,d=900;
+      function step(ts){if(!s)s=ts;var p=Math.min((ts-s)/d,1),e=1-Math.pow(1-p,3);el.textContent=Math.round(e*t);if(p<1)requestAnimationFrame(step);else el.textContent=t;}
+      requestAnimationFrame(step);}
+    if('IntersectionObserver' in window){var io2=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){up(e.target);io2.unobserve(e.target);}});},{threshold:0.5});nums.forEach(function(n){n.textContent='0';io2.observe(n);});}
+    else nums.forEach(function(n){n.textContent=n.getAttribute('data-count');});
+  })();
+
+  /* ---- MATRIX RAIN (dark) ---- */
+  (function(){
+    var c=document.getElementById('matrix'),x=c.getContext('2d');
+    var chars="01</>{}[]=+*ABCDEF0123456789$#%&アカサタナ".split("");
+    var fs=14,cols,drops;
+    function resize(){c.width=innerWidth;c.height=innerHeight;cols=Math.floor(c.width/fs);drops=[];for(var i=0;i<cols;i++)drops[i]=Math.random()*-50;}
+    resize();window.addEventListener('resize',resize);
+    function draw(){
+      x.fillStyle='rgba(5,8,10,0.08)';x.fillRect(0,0,c.width,c.height);
+      x.font=fs+'px monospace';
+      for(var i=0;i<cols;i++){
+        var t=chars[Math.floor(Math.random()*chars.length)];
+        var y=drops[i]*fs;
+        var g=x.createLinearGradient(0,y-fs*4,0,y);
+        x.fillStyle=(Math.random()>0.985)?'#d6f5e6':'#00ff9c';
+        x.globalAlpha=Math.random()*0.5+0.5;
+        x.fillText(t,i*fs,y);
+        x.globalAlpha=1;
+        if(y>c.height&&Math.random()>0.975)drops[i]=0;
+        drops[i]++;
+      }
+    }
+    var raf;
+    function loop(){if(root.getAttribute('data-theme')==='dark'&&!reduce){draw();}raf=requestAnimationFrame(loop);}
+    if(!reduce)loop();
+  })();
+
+  /* ---- LIGHT PARTICLES (light) ---- */
+  (function(){
+    var c=document.getElementById('particles'),x=c.getContext('2d');
+    var pts=[], mouse={x:-999,y:-999};
+    function resize(){c.width=innerWidth;c.height=innerHeight;pts=[];var n=Math.min(90,Math.floor(c.width/16));for(var i=0;i<n;i++)pts.push({x:Math.random()*c.width,y:Math.random()*c.height,vx:(Math.random()-0.5)*0.45,vy:(Math.random()-0.5)*0.45,r:Math.random()*1.6+1.4});}
+    resize();window.addEventListener('resize',resize);
+    window.addEventListener('mousemove',function(e){mouse.x=e.clientX;mouse.y=e.clientY;});
+    function draw(){
+      x.clearRect(0,0,c.width,c.height);
+      for(var i=0;i<pts.length;i++){var p=pts[i];p.x+=p.vx;p.y+=p.vy;
+        if(p.x<0||p.x>c.width)p.vx*=-1;if(p.y<0||p.y>c.height)p.vy*=-1;
+        // node with soft glow
+        x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);x.fillStyle='rgba(0,163,108,0.9)';x.shadowColor='rgba(0,163,108,0.6)';x.shadowBlur=8;x.fill();x.shadowBlur=0;
+        for(var j=i+1;j<pts.length;j++){var q=pts[j],dx=p.x-q.x,dy=p.y-q.y,d=Math.sqrt(dx*dx+dy*dy);
+          if(d<140){x.beginPath();x.moveTo(p.x,p.y);x.lineTo(q.x,q.y);x.strokeStyle='rgba(0,163,108,'+(0.35*(1-d/140))+')';x.lineWidth=1;x.stroke();}}
+        // link to mouse
+        var mdx=p.x-mouse.x,mdy=p.y-mouse.y,md=Math.sqrt(mdx*mdx+mdy*mdy);
+        if(md<170){x.beginPath();x.moveTo(p.x,p.y);x.lineTo(mouse.x,mouse.y);x.strokeStyle='rgba(0,163,108,'+(0.4*(1-md/170))+')';x.lineWidth=1;x.stroke();}
+      }
+    }
+    function loop(){if(root.getAttribute('data-theme')==='light'&&!reduce){draw();}requestAnimationFrame(loop);}
+    if(!reduce)loop();
+  })();
+})();
+</script>
+</body>
+</html>
