@@ -284,6 +284,16 @@ footer .fmono .dot{color:var(--acc);}
   .intro{padding:22px 20px;}
   .toggle{top:12px;right:12px;}
 }
+/* narrow phones: stack photo above name so nothing gets squeezed/wrapped */
+@media (max-width:460px){
+  .hero-top{flex-direction:column;align-items:flex-start;gap:18px;}
+  .photo{width:112px;height:135px;}
+  .hero h1{font-size:1.55rem;}
+  .eyebrow{font-size:0.64rem;letter-spacing:0.18em;}
+  .role{font-size:0.82rem;}
+  .stats{flex-wrap:wrap;}
+  .stat{min-width:45%;border-bottom:1px solid var(--line);}
+}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto;}}
 @media print{body{background:#fff;color:#000;}#matrix,#particles,.toggle{display:none;}}
 </style>
